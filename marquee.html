@@ -1,0 +1,322 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Tech Stack Marquee</title>
+<style>
+  :root{
+    --bg:#0f1724;
+    --card-bg: linear-gradient(135deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02));
+    --glass: rgba(255,255,255,0.04);
+    --marquee-speed: 18s; /* lower = faster */
+  }
+
+  /* Page baseline */
+  body{
+    margin:0;
+    font-family:Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    background: linear-gradient(180deg,#071027 0%, #0f1724 100%);
+    color:#e6eef8;
+    display:flex;
+    min-height:100vh;
+    align-items:center;
+    justify-content:center;
+    padding:32px;
+    -webkit-font-smoothing:antialiased;
+    -moz-osx-font-smoothing:grayscale;
+  }
+
+  .marquee-wrap{
+    width:100%;
+    max-width:1100px;
+    border-radius:18px;
+    padding:18px;
+    background:var(--card-bg);
+    box-shadow: 0 8px 30px rgba(2,6,23,0.6), inset 0 1px 0 rgba(255,255,255,0.02);
+    backdrop-filter: blur(8px) saturate(120%);
+    border:1px solid rgba(255,255,255,0.03);
+  }
+
+  .marquee-header{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    margin-bottom:12px;
+  }
+  .title {
+    font-weight:600;
+    font-size:18px;
+    letter-spacing:0.2px;
+  }
+  .subtitle {
+    margin-left:auto;
+    font-size:13px;
+    color: #9fb3d6;
+  }
+
+  /* marquee area */
+  .marquee{
+    overflow:hidden;
+    position:relative;
+    height:96px;
+    display:flex;
+    align-items:center;
+  }
+
+  .marquee-track{
+    display:flex;
+    gap:18px;
+    align-items:center;
+    /* animation drives the leftward loop */
+    animation: marquee linear infinite;
+    animation-duration: var(--marquee-speed);
+    will-change: transform;
+    padding-bottom:4px;
+  }
+
+  /* Each badge (logo + label) */
+  .badge{
+    display:flex;
+    gap:10px;
+    align-items:center;
+    min-width:220px;
+    max-width:260px;
+    padding:10px 14px;
+    border-radius:12px;
+    background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+    box-shadow: 0 6px 18px rgba(2,6,23,0.45), 0 1px 0 rgba(255,255,255,0.02) inset;
+    border:1px solid rgba(255,255,255,0.03);
+    transition: transform .28s cubic-bezier(.2,.9,.2,1), box-shadow .28s;
+    cursor:default;
+  }
+  .badge:focus-within,
+  .badge:hover{
+    transform: translateY(-6px);
+    box-shadow: 0 18px 40px rgba(2,6,23,0.6);
+  }
+
+  .logo{
+    width:64px;
+    height:64px;
+    border-radius:12px;
+    flex: 0 0 64px;
+    display:inline-grid;
+    place-items:center;
+    font-weight:700;
+    font-size:18px;
+    color:white;
+    box-shadow: 0 6px 16px rgba(0,0,0,0.5);
+  }
+
+  .meta{
+    display:flex;
+    flex-direction:column;
+  }
+  .tech{
+    font-weight:700;
+    font-size:15px;
+    letter-spacing:0.2px;
+  }
+  .desc{
+    font-size:12px;
+    color:#9fb3d6;
+    margin-top:4px;
+  }
+
+  .pill{
+    margin-left:auto;
+    font-size:11px;
+    padding:6px 8px;
+    border-radius:999px;
+    background:rgba(255,255,255,0.03);
+    color:#bcd6ff;
+    border:1px solid rgba(255,255,255,0.02);
+  }
+
+  @keyframes marquee {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); } /* we duplicate content to make 50% seamless */
+  }
+
+  /* Controls row */
+  .controls{
+    margin-top:12px;
+    display:flex;
+    gap:10px;
+    align-items:center;
+    justify-content:flex-end;
+  }
+  .control-range{ width:180px; }
+
+  /* Responsive */
+  @media (max-width:720px){
+    .badge{ min-width:160px; }
+    .marquee{ height:84px; }
+    .logo{ width:54px; height:54px; }
+  }
+</style>
+</head>
+<body>
+  <div class="marquee-wrap" aria-label="Tech stack marquee">
+    <div class="marquee-header">
+      <div class="title">Our Tech Stack</div>
+      <div class="subtitle">Modern • performant • delightful</div>
+    </div>
+
+    <div class="marquee" tabindex="0" aria-live="polite">
+      <!-- track will be duplicated by JS for seamless looping -->
+      <div class="marquee-track" id="marqueeTrack" role="list">
+        <!-- Example badges: swap the SVGs or use <img src="your-logo.svg"> -->
+        <div class="badge" role="listitem" tabindex="-1" data-tech="HTML5">
+          <div class="logo" style="background:linear-gradient(135deg,#FF6B00,#FF3D00);">
+            <!-- simple inline HTML5-ish SVG mark -->
+            <svg width="40" height="40" viewBox="0 0 128 128" aria-hidden="true"><path fill="#fff" d="M19 0h90l-8.1 91.8L64 128 36.1 91.8 28 0z"/><path fill="#E44D26" d="M64 117.7l29.7-20.2 6.9-77.6H64z"/></svg>
+          </div>
+          <div class="meta">
+            <div class="tech">HTML5</div>
+            <div class="desc">Semantic, accessible markup</div>
+          </div>
+          <div class="pill">Frontend</div>
+        </div>
+
+        <div class="badge" role="listitem" tabindex="-1" data-tech="CSS3">
+          <div class="logo" style="background:linear-gradient(135deg,#2543FF,#0091FF);">
+            <svg width="40" height="40" viewBox="0 0 128 128" aria-hidden="true"><path fill="#fff" d="M19 0h90l-8.1 91.8L64 128 36.1 91.8 28 0z"/><path fill="#2965f1" d="M64 117.7l29.7-20.2 6.9-77.6H64z"/></svg>
+          </div>
+          <div class="meta">
+            <div class="tech">CSS3</div>
+            <div class="desc">Responsive, modern layouts</div>
+          </div>
+          <div class="pill">Styling</div>
+        </div>
+
+        <div class="badge" role="listitem" tabindex="-1" data-tech="JavaScript">
+          <div class="logo" style="background:linear-gradient(135deg,#F7DF1E,#E6C31E); color:#222;">
+            <svg width="40" height="40" viewBox="0 0 128 128" aria-hidden="true"><path fill="#000" d=""/></svg>
+            JS
+          </div>
+          <div class="meta">
+            <div class="tech">JavaScript</div>
+            <div class="desc">Interactivity & logic</div>
+          </div>
+          <div class="pill">Language</div>
+        </div>
+
+        <div class="badge" role="listitem" tabindex="-1" data-tech="React">
+          <div class="logo" style="background:linear-gradient(135deg,#61DAFB,#50C0F0);">
+            <svg width="40" height="40" viewBox="0 0 841.9 595.3" aria-hidden="true"><g fill="#fff"><path d="M666.3 296.5c0 35-28.3 63.4-63.4 63.4s-63.4-28.3-63.4-63.4 28.3-63.4 63.4-63.4 63.4 28.4 63.4 63.4z"/></g></svg>
+          </div>
+          <div class="meta">
+            <div class="tech">React</div>
+            <div class="desc">Component-driven UI</div>
+          </div>
+          <div class="pill">UI</div>
+        </div>
+
+        <div class="badge" role="listitem" tabindex="-1" data-tech="Node.js">
+          <div class="logo" style="background:linear-gradient(135deg,#68A063,#2B6E2E);">
+            <svg width="36" height="36" viewBox="0 0 256 256" aria-hidden="true"><circle cx="128" cy="128" r="120" fill="none"/></svg>
+          </div>
+          <div class="meta">
+            <div class="tech">Node.js</div>
+            <div class="desc">Server & tooling</div>
+          </div>
+          <div class="pill">Backend</div>
+        </div>
+
+        <div class="badge" role="listitem" tabindex="-1" data-tech="Docker">
+          <div class="logo" style="background:linear-gradient(135deg,#2496ED,#0D62B8);">
+            <svg width="36" height="36" viewBox="0 0 512 512" aria-hidden="true"><rect width="100%" height="100%" fill="none"/></svg>
+          </div>
+          <div class="meta">
+            <div class="tech">Docker</div>
+            <div class="desc">Containers & reproducibility</div>
+          </div>
+          <div class="pill">Infra</div>
+        </div>
+
+        <!-- Add more badges as you like -->
+      </div>
+    </div>
+
+    <div class="controls" aria-hidden="false">
+      <label style="font-size:13px;color:#9fb3d6;">Speed</label>
+      <input class="control-range" id="speedRange" type="range" min="6" max="40" value="18" />
+      <button id="pauseBtn" style="padding:8px 12px;border-radius:8px;border:none;background:rgba(255,255,255,0.03);color:#bcd6ff;cursor:pointer;">Pause</button>
+    </div>
+  </div>
+
+<script>
+  (function(){
+    const track = document.getElementById('marqueeTrack');
+    const pauseBtn = document.getElementById('pauseBtn');
+    const speedRange = document.getElementById('speedRange');
+    let isPaused = false;
+
+    // Duplicate track children so animation can loop seamlessly.
+    // We duplicate once; CSS animation translates -50% to match duplication.
+    function duplicateTrack(){
+      const children = Array.from(track.children);
+      children.forEach(node => track.appendChild(node.cloneNode(true)));
+      // set role and attributes for cloned nodes (optional)
+    }
+
+    duplicateTrack();
+
+    // Pause/resume helpers
+    function setPaused(p){
+      if(p){
+        track.style.animationPlayState = 'paused';
+        pauseBtn.textContent = 'Resume';
+      } else {
+        track.style.animationPlayState = 'running';
+        pauseBtn.textContent = 'Pause';
+      }
+      isPaused = p;
+    }
+
+    pauseBtn.addEventListener('click', ()=> setPaused(!isPaused));
+    // Pause on hover or focus for accessibility
+    track.parentElement.addEventListener('mouseenter', ()=> setPaused(true));
+    track.parentElement.addEventListener('mouseleave', ()=> setPaused(false));
+    track.parentElement.addEventListener('focusin', ()=> setPaused(true));
+    track.parentElement.addEventListener('focusout', ()=> setPaused(false));
+
+    // Speed control — modifies CSS animation-duration
+    speedRange.addEventListener('input', (e)=>{
+      const val = e.target.value;
+      track.style.animationDuration = val + 's';
+    });
+
+    // Pause when page not visible to conserve CPU
+    document.addEventListener('visibilitychange', ()=>{
+      if(document.hidden) setPaused(true);
+      else setPaused(false);
+    });
+
+    // keyboard: Space toggles pause when marquee is focused
+    const marqueeWrap = track.parentElement;
+    marqueeWrap.addEventListener('keydown', (e)=>{
+      if(e.code === 'Space'){
+        e.preventDefault();
+        setPaused(!isPaused);
+      }
+    });
+
+    // Optional: click a badge to copy tech name (small UX nicety)
+    track.querySelectorAll('.badge').forEach(b=>{
+      b.addEventListener('click', ()=>{
+        const name = b.dataset.tech || b.querySelector('.tech')?.textContent || 'tech';
+        if(navigator.clipboard) navigator.clipboard.writeText(name).catch(()=>{/*ignore*/});
+        b.animate([{transform:'scale(1)'},{transform:'scale(.98)'}],{duration:120,iterations:1});
+      });
+    });
+
+    // Set initial animation-duration to match CSS var
+    // (so speedRange manipulates the same property)
+    track.style.animationDuration = getComputedStyle(document.documentElement).getPropertyValue('--marquee-speed') || '18s';
+  })();
+</script>
+</body>
+</html>
