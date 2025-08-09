@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Portfolio Landing 2 - Split Screen</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;700&display=swap');
+    * {
+      margin: 0; padding: 0; box-sizing: border-box;
+    }
+    body, html {
+      height: 100%;
+      font-family: 'Montserrat', sans-serif;
+      color: #222;
+      background: #f9f9f9;
+    }
+    .container {
+      display: flex;
+      height: 100vh;
+      max-width: 1200px;
+      margin: 0 auto;
+      box-shadow: 0 0 25px rgba(0,0,0,0.05);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+    .left {
+      flex: 1;
+      background: url('https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=800&q=80') no-repeat center/cover;
+      position: relative;
+    }
+    .left::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,0.4);
+    }
+    .right {
+      flex: 1;
+      background: white;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 60px 50px;
+    }
+    h1 {
+      font-weight: 700;
+      font-size: 3.5rem;
+      margin-bottom: 24px;
+      color: #222;
+    }
+    p {
+      font-weight: 300;
+      font-size: 1.25rem;
+      margin-bottom: 40px;
+      line-height: 1.6;
+      color: #555;
+    }
+    .btn {
+      background: #ff3366;
+      color: white;
+      padding: 18px 45px;
+      font-size: 1.1rem;
+      font-weight: 700;
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      width: fit-content;
+      transition: background 0.3s ease;
+      text-decoration: none;
+      text-align: center;
+      display: inline-block;
+    }
+    .btn:hover {
+      background: #e02959;
+    }
+    @media (max-width: 900px) {
+      .container {
+        flex-direction: column;
+        height: auto;
+        border-radius: 0;
+        box-shadow: none;
+      }
+      .left, .right {
+        flex: none;
+        height: 300px;
+        width: 100%;
+      }
+      .right {
+        padding: 40px 20px;
+        height: auto;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="left"></div>
+    <div class="right">
+      <h1>Hi, I'm Samantha</h1>
+      <p>I’m a front-end developer focused on building responsive, user-friendly websites with great UI/UX design. Let’s create something beautiful together.</p>
+      <a href="#portfolio" class="btn">View My Portfolio</a>
+    </div>
+  </div>
+</body>
+</html>
